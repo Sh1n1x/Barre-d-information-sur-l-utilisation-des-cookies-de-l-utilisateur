@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Jquery Cookie</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <style>
+		.cookie {
+			position:fixed;
+			left:0;
+			right:0;
+			bottom:0;
+			padding:7px 20px;
+			color:#666
+			font-size:0.9em;
+			border-top: 1px solid #e4e4e4;
+			background:color:#f2f2f2;
+		}
+		.cookie a { text-decoration:underline; }
+		.cookie a:hover { text-decoration:none; }
+		.cookie_btn {
+			display:inline;
+			margin-left:15px;
+			background-color: #55acee;
+			color:#fff;
+			padding: 4px 10px;
+			cursor:pointer;
+		}
+		.cookie_btn-error {
+			background-color:#e84e40;
+		}
+	</style>
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Jquery Cookie</a>
+        </div>
+      </div>
+    </div>
+    </div> <!-- /container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jquery.cookie.js"></script>
+	<script>
+		(function($){
+			if($.cookie('cookiebar') === undefined) {
+				$('body').append('<div class="cookie" id ="cookie">En poursuivant votre navigation sur ce site, vous acceptez l\'utilisation de Cookies pour vous proposer pour réaliser des statistiques de visites anonymes. <a href="#">En savoir plus</a><div class="cookie_btn" id="cookie_accept">ok</div><div class="cookie_btn cookie_btn-error" id="cookie_cancel">Refuser les cookies</div></div>');
+				//Maquer la barre si acceptation
+				$('#cookie_accept').click(function(e){
+					$('#cookie').fadeOut();
+					e.preventDefault();
+					$.cookie('cookiebar', "viewed", {expires: 30 * 12});
+				});
+				
+				$('#cookie_cancel').click(function(e){
+					e.preventDefault();
+					$('#cookie').fadeOut();
+					$.cookie('cookiebar', "viewed", {expires: 30 * 12});
+					$.cookie('cookiecancel', "1", {expires: 30 * 12});
+				});
+			}
+			if ( $.cookie('cookiecancel') === undefined) {
+				//Code Google analytics
+			};
+		})(jQuery);
+	</script>
+  </body>
+</html>
